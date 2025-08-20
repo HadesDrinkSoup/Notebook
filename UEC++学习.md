@@ -1,0 +1,45 @@
+##### UEC++学习
+
+###### 1.基础
+
+在项目中文件ProjectName.Build.cs中添加公共头文件路径，防止头文件路径过长
+
+```c++
+PublicIncludePaths.AddRange(
+	new string[] {
+		"ProjectName"
+	}
+);
+```
+
+创建的C++类在拖动到关卡中默认没有变换，需要在构造函数中重新设置根组件
+
+```c++
+//根组件设置为默认子对象才在世界场景中有变换
+RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("MyRootComponet"));
+```
+
+在C++类中创建的属性需要使用UPROPERTY宏暴露给Unreal的反射系统才能在虚幻引擎中使用
+
+```c++
+UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "MyClass")
+/*
+BlueprintReadWrite蓝图可读写
+EditAnywhere可以在编辑器的细节面板中编辑
+Category在编辑器的细节面板分类
+*/
+int32 Health = 100;
+```
+
+在C++类中创建的函数需要使用UFUNCTION宏暴露给Unreal的反射系统才能在虚幻引擎中使用
+
+```c++
+int32 Health = 100;
+/*
+BlueprintCallable蓝图中科调用此函数
+Category蓝图节点中分类
+*/
+UFUNCTION(BlueprintCallable, Category = "MyClass")
+int32 GetCurrentHealth();
+```
+

@@ -2,6 +2,14 @@
 
 ###### 1.基础
 
+个人习惯Viusual Studio设置
+
+![字体设置](\Asset\字体设置.png)
+
+添加插件Force UTF-8 防止中文编码错误
+
+![Force UTF-8](\Asset\UTF-8插件.png)
+
 在项目中文件ProjectName.Build.cs中添加公共头文件路径，防止头文件路径过长
 
 ```c++

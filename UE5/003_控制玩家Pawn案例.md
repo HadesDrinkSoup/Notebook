@@ -43,6 +43,38 @@ void APlayerPawnCase::BeginPlay()
 }
 ```
 
+###### 添加输入操作、操作映射、操作处理函数
+
+```c++
+//添加头文件
+#include "EnhancedInputLibrary.h"
+
+// 输入动作：移动
+UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+class UInputAction* MoveAction;
+
+// 输入动作：观察（旋转视角）
+UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+class UInputAction* LookAction;
+
+// 输入动作：镜头缩放
+UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+class UInputAction* ZoomAction;
+
+// 默认输入映射上下文
+UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+class UInputMappingContext* DefaultMappingContext;
+
+// 处理移动输入
+void Move(const FInputActionValue& Value);
+
+// 处理观察（旋转）输入
+void Look(const FInputActionValue& Value);
+
+// 处理缩放输入
+void Zoom(const FInputActionValue& Value);
+```
+
 ###### 设置玩家输入组件
 
 `PlayerPawn.h`头文件添加函数
@@ -75,36 +107,6 @@ void APlayerPawnCase::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	}
 
 }
-```
-
-###### 添加输入操作、操作映射、操作处理函数
-
-```c++
-
-// 输入动作：移动
-UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-class UInputAction* MoveAction;
-
-// 输入动作：观察（旋转视角）
-UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-class UInputAction* LookAction;
-
-// 输入动作：镜头缩放
-UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-class UInputAction* ZoomAction;
-
-// 默认输入映射上下文
-UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-class UInputMappingContext* DefaultMappingContext;
-
-// 处理移动输入
-void Move(const FInputActionValue& Value);
-
-// 处理观察（旋转）输入
-void Look(const FInputActionValue& Value);
-
-// 处理缩放输入
-void Zoom(const FInputActionValue& Value);
 ```
 
 ###### 处理移动输入
@@ -379,7 +381,7 @@ void APlayerPawnCase::Look(const FInputActionValue& Value)
 		FRotator CurrentRotation = Controller->GetControlRotation();
 	
 		// 计算新的俯仰角（上下看），限制在-80到80度之间
-		float NewPitch = FMath::Clamp(CurrentRotation.Pitch + LookAxisVector.Y, -80.0f, 80.0f);
+            float NewPitch = FMath::Clamp(CurrentRotation.Pitch + LookAxisVector.Y, -80.0f, 80.0f);
 	
 		// 计算新的偏航角（左右看）
 		float NewYaw = CurrentRotation.Yaw + LookAxisVector.X;

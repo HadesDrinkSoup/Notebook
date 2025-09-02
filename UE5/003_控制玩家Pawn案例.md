@@ -1,6 +1,6 @@
-#### 用C++控制Pawn类第三人称镜头物体移动(X: Pitch，Y:Roll，Z:Yaw，X左右，Y前后，Z上下)
+### 用C++控制Pawn类第三人称镜头物体移动(X: Pitch，Y:Roll，Z:Yaw，X左右，Y前后，Z上下)
 
-##### 创建父子级层级关系
+#### 创建父子级层级关系
 
 `SetupAttachment(USceneComponent* InParent, FName InSocketName = NAME_None);`创建父子级层级关系
 
@@ -9,11 +9,11 @@
 //InSocketName（可选）：父组件上的插槽名称，用于精确指定附加点。
 ```
 
-##### 增强输入
+#### 增强输入
 
 工作流程：初始化设置`BeginPlay()`添加输入映射 ==> 绑定连接`SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)`将输入事件与处理函数互相绑定 ==> 运行时触发处理函数
 
-###### 增强输入必须添加以下三个头文件
+##### 增强输入必须添加以下三个头文件
 
 ```c++
 //增强输入三件套
@@ -22,7 +22,7 @@
 #include "EnhancedInputSubsystems.h" //增强子系统的头文件
 ```
 
-###### 添加输入映射上下文
+##### 添加输入映射上下文
 
 在游戏开始或生成是要设置输入映射上下文
 
@@ -43,7 +43,7 @@ void APlayerPawnCase::BeginPlay()
 }
 ```
 
-###### 添加输入操作、操作映射、操作处理函数
+##### 添加输入操作、操作映射、操作处理函数
 
 ```c++
 //添加头文件
@@ -75,7 +75,7 @@ void Look(const FInputActionValue& Value);
 void Zoom(const FInputActionValue& Value);
 ```
 
-###### 设置玩家输入组件
+##### 设置玩家输入组件
 
 `PlayerPawn.h`头文件添加函数
 
@@ -109,7 +109,7 @@ void APlayerPawnCase::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 }
 ```
 
-###### 处理移动输入
+##### 处理移动输入
 
 想要跟着镜头方向移动时，需根据控制器朝向计算向前和向右向量
 
@@ -137,7 +137,7 @@ void APlayerPawnCase::Move(const FInputActionValue& Value)
 }
 ```
 
-###### 处理视角旋转输入
+##### 处理视角旋转输入
 
 ```c++
 // 处理视角旋转输入
@@ -164,7 +164,7 @@ void APlayerPawnCase::Look(const FInputActionValue& Value)
 }
 ```
 
-##### 想要操作物体或者玩家时须添加移动组件
+想要操作物体或者玩家时须添加移动组件
 
 ```c++
 //浮空移动组件UFloatingPawnMovement
@@ -190,9 +190,9 @@ bUseControllerRotationPitch = false;
 bUseControllerRotationRoll = false;
 ```
 
-#### 源码
+##### 源码
 
-`PlyaerPawn.h`
+###### `PlyaerPawn.h`
 
 ```c++
 #pragma once
@@ -282,7 +282,7 @@ public:
 };
 ```
 
-`PlyaerPawn.cpp`
+###### `PlyaerPawn.cpp`
 
 ```c++
 #include "PlayerPawnCase.h"
